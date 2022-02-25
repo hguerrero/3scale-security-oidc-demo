@@ -1,18 +1,20 @@
-var express = require('express');
-var app = express();
-var stringReplace = require('string-replace-middleware');
+const express = require('express');
+const { stringReplace } = require('string-replace-middleware');
+const path = require('path');
+
+const app = express();
 
 console.log(process.env);
 
 // writing from Deployment Config to temporary variables
-var BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3000/secured";
-var KEYCLOAK_URL = process.env.KEYCLOAK_URL || "http://localhost:8080/auth";
-var KEYCLOAK_REALM = process.env.KEYCLOAK_REALM || "insurance";
-var KEYCLOAK_CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID || "accidentui-client";
-var KEYCLOAK_ROLE = process.env.KEYCLOAK_ROLE || "none";
-var AUTHENTICATION_OPTION = process.env.AUTHENTICATION_OPTION || "none";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3000/secured";
+const KEYCLOAK_URL = process.env.KEYCLOAK_URL || "http://localhost:8080/auth";
+const KEYCLOAK_REALM = process.env.KEYCLOAK_REALM || "insurance";
+const KEYCLOAK_CLIENT_ID = process.env.KEYCLOAK_CLIENT_ID || "accidentui-client";
+const KEYCLOAK_ROLE = process.env.KEYCLOAK_ROLE || "none";
+const AUTHENTICATION_OPTION = process.env.AUTHENTICATION_OPTION || "none";
 
-var PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 
 // adding values into the source code
 app.use(stringReplace({
@@ -24,7 +26,11 @@ app.use(stringReplace({
    'ENVIRONMENT.AUTHENTICATION_OPTION': AUTHENTICATION_OPTION
 }));
 
-app.use(express.static('templates/dist'))
+app.use('/assets/css', express.static(path.join(__dirname, '/node_modules/patternfly/dist/css')))
+app.use('/assets/js', express.static(path.join(__dirname, '/node_modules/patternfly/dist/js')))
+app.use('/assets/css', express.static(path.join(__dirname, '/node_modules/bootstrap-datepicker/dist/css')))
+app.use('/assets/js', express.static(path.join(__dirname, '/node_modules/bootstrap-datepicker/dist/js')))
+app.use(express.static(path.join(__dirname, '/public')))
 
 app.get('/', function(req, res) {
     res.render('index.html');

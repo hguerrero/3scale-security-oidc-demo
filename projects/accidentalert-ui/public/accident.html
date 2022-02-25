@@ -322,12 +322,12 @@
 		</div>
 	</div>
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery-1.11.1.min.min.js"></script>
+	<script src="assets/js/jquery-1.11.1.min.js"></script>
+	<script src="assets/js/min/plugins-min.js"></script>
+	<script src="assets/js/min/app-min.js"></script>
 	<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="assets/js/patternfly.min.js"></script>
-	<script src="assets/js/plugins.min.js"></script>
-	<script src="assets/js/app.min.js"></script>
+
 
 	<script type="text/javascript">
 		// Initialize Boostrap-Datepicker
@@ -431,7 +431,7 @@
 		$('#accident-app').hide();
 		$('#loginUrl').hide();
 		
-		if (authentication_option === 'unprotected') {
+		if (authentication_option === 'unprotected' || authentication_option === 'none') {
 			console.log('No authentication performed!');
 			$('#accident-app').show();
 			
