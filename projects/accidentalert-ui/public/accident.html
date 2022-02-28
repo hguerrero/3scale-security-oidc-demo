@@ -444,7 +444,7 @@
 			};
 			var keycloak = Keycloak(keyOptions);
 			console.log('Start initializing Keycloak');			
-			keycloak.init({ onLoad: 'check-sso' }).success(function (authenticated) {
+			keycloak.init({ onLoad: 'check-sso' }).then(function (authenticated) {
 				console.log(authenticated ? 'authenticated' : 'not authenticated');	
 				console.log('LoginURL: '+loginUrl);
 				if (authenticated) {
